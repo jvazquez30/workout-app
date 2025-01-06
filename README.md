@@ -34,4 +34,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# workout-app
+# Workout-app
+This is an app created to help users create their workouts and be able to save/modify/delete.
+
+The app also includes supabase Auth giving the capabilities of logging in and signing up.
+- Provide email and password
+- Info stored in supabase database
+
