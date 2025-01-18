@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react';
-import { fetchWithAuth } from '../../../utils/workout_api/service';
-import { Exercise } from '../../../types/exercise';
+import { fetchWithAuth } from '../../workout_api/service';
+import { Exercise } from '../../../../types/exercise';
 
 export default function ExerciseBrowser() {
     const [exercises, setExercises] = useState<Exercise[]>([]);

@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
-import { createClient } from '../utils/supabase/server'
-import LogoutButton from '../pages/components/LogoutButton'
-import WorkoutDash from '../pages/components/WorkoutDash'
+import { createClient } from '../../../utils/supabase/server'
+import LogoutButton from '../../components/LogoutButton'
+import WorkoutDash from '../../components/WorkoutDash'
 export default async function PrivatePage() {
   const supabase = await createClient()
 
