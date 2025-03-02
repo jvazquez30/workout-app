@@ -10,7 +10,7 @@ export default function LogoutButton() {
                 await supabase.auth.signOut()
                 window.location.href = '/'
             }}
-            className="px-2 py-1 bg-nordicGray text-white rounded hover:bg-red-600"
+            className="px-2 py-1 bg-nordicGray text-white rounded hover:bg-nordicGray/80"
         >
             Logout
         </button>

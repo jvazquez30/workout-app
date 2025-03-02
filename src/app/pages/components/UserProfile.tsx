@@ -5,6 +5,7 @@ import { createClient } from '../../utils/supabase/client'
 
 export default function UserProfile() {
     const [firstName, setFirstName] = useState('')
+    const [age, setAge] = useState('')
     const [isEditing, setIsEditing] = useState(false)
     const [isSaving, setIsSaving] = useState(false)
     const [error, setError] = useState<string | null>(null)
@@ -21,7 +22,7 @@ export default function UserProfile() {
 
                 const { data, error } = await supabase
                     .from('profiles')
-                    .select('first_name')
+                    .select('first_name, age')
                     .eq('id', user.id)
                     .single()
 
@@ -29,6 +30,7 @@ export default function UserProfile() {
 
                 if (data) {
                     setFirstName(data.first_name || '')
+                    setAge(data.age || '')
                 }
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to load profile')
@@ -57,6 +59,7 @@ export default function UserProfile() {
                 .upsert({
                     id: user.id,
                     first_name: firstName,
+                    age: age,
                     updated_at: new Date().toISOString()
                 })
 
@@ -87,6 +90,7 @@ export default function UserProfile() {
                 <div className="space-y-4">
                     <div className="flex justify-between items-center">
                         <p className="text-white">First Name: {firstName || 'Not set'}</p>
+                        <p className="text-white">Age: {age || 'Not set'}</p>
                         <button
                             onClick={() => setIsEditing(true)}
                             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
@@ -108,6 +112,18 @@ export default function UserProfile() {
                             onChange={(e) => setFirstName(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
                             placeholder="Enter your first name"
+                            required
+                        />
+                        <label htmlFor="age" className="block text-sm font-medium text-white mb-2">
+                            Age
+                        </label>
+                        <input
+                            type="number"
+                            id="age"
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                            placeholder="Enter your age"
                             required
                         />
                     </div>

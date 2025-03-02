@@ -48,5 +48,5 @@ export async function signup(formData: FormData) {
   }
 
   // Always redirect to verify-email page after signup
-  redirect('/verify-email')
+  redirect('/pages/login/verify-email')
 }

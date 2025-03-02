@@ -8,7 +8,7 @@ export default function VerifyEmailPage() {
                 </p>
                 <p className="text-sm text-gray-500">
                     After verifying your email, you can return to the{' '}
-                    <a href="/login" className="text-blue-500 hover:underline">
+                    <a href="localhost:3000" className="text-blue-500 hover:underline">
                         login page
                     </a>
                 </p>
