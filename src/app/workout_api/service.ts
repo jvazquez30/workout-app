@@ -1,16 +1,23 @@
-export async function fetchWithAuth(url: string, options: RequestInit = {}) {
+import { Exercise } from '../../../types/exercise'
+
+const BASE_URL = 'https://libapi.vercel.app/api/exercises'
+
+interface ExerciseQueryParams {
+    lang?: string
+    page?: number
+    limit?: number
+    category?: string
+    muscle?: string
+    difficulty?: string
+    equipment?: string
+}
+
+interface ApiResponse<T> {
+    data: T
+    error: string | null
+}
+
+export async function getAllExercises(params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
     try {
-        const response = await fetch('https://libapi.vercel.app/api/exercises?lang=en&page=0&limit=300', options);
-
-        if (!response.ok) {
-            console.error('API Error:', await response.text());
-            throw new Error(`API error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Fetch error:', error);
-        throw error;
-    }
+        
 } 
