@@ -38,7 +38,7 @@ export default async function PrivatePage() {
                 <p className='text-lg'>Today is {new Date().toLocaleDateString()}</p>
             </div>
 
-            <WorkoutDash />
+            {/* <WorkoutDash /> */}
         </div>
     )
 } 

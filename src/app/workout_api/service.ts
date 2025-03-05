@@ -77,3 +77,13 @@ export async function getAllExercises(params: ExerciseQueryParams = {}): Promise
 }
 
 export async function getExercisesByCategory(category: string, params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
+    return getAllExercises({ ...params, category })
+}
+
+export async function getExercisesByMuscle(muscle: string, params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
+    return getAllExercises({ ...params, muscle })
+}
+
+export async function getExercisesByDifficulty(difficulty:string, params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
+    return getAllExercises({ ...params, difficulty })
+}
