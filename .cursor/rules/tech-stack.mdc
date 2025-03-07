@@ -1,0 +1,13 @@
+---
+description: Tech Stack.
+globs: 
+alwaysApply: false
+---
+
+# Tech Stack
+
+- Use Supabase Auth and API for Backend
+- Use React/Typescript for Frontend.
+- Use Tailwind CSS Styling
+
+#
