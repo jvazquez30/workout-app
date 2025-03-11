@@ -16,9 +16,9 @@ const ExerciseBrowser: React.FC<ExerciseBrowserProps> = ({ onExerciseSelect }) =
     const [selectedMuscle, setSelectedMuscle] = useState('');
     const [selectedDifficulty, setSelectedDifficulty] = useState('');
 
-    const categories = ['Strength', 'Endurance', 'Flexibility', 'Balance', 'Coordination', 'Power', 'Speed', 'Stamina', 'Agility', 'Balance', 'Coordination', 'Power', 'Speed', 'Stamina', 'Agility'];
-    const muscles = ['Chest', 'Back', 'Shoulders', 'Biceps', 'Triceps', 'Forearms', 'Abs', 'Quads', 'Hamstrings', 'Glutes', 'Calves', 'Adductors', 'Abductors', 'Serratus Anterior', 'Obliques', 'Lats', 'Rhomboids', 'Traps', 'Rotator Cuffs', 'Lower Back', 'Upper Back'];
-    const difficulties = ['Beginner', 'Intermediate', 'Advanced'];
+    const categories = ['strength', 'endurance', 'flexibility', 'balance', 'coordination', 'power', 'speed', 'stamina', 'agility', 'balance', 'coordination', 'power', 'speed', 'stamina', 'agility'];
+    const muscles = ['chest', 'back', 'shoulders', 'biceps', 'triceps', 'forearms', 'abs', 'quads', 'hamstrings', 'glutes', 'calves', 'adductors', 'abductors', 'serratus anterior', 'obliques', 'lats', 'rhomboids', 'traps', 'rotator cuffs', 'lower back', 'upper back'];
+    const difficulties = ['beginner', 'intermediate', 'advanced'];
 
     useEffect(() => {
         loadExercises();
@@ -180,7 +180,7 @@ const ExerciseBrowser: React.FC<ExerciseBrowserProps> = ({ onExerciseSelect }) =
                     exercises.map(exercise => (
                         <div key={exercise.id} className='bg-nordicGray text-white rounded-md p-4'>
                             <h3 className='text-lg font-bold'>{exercise.name}</h3>
-                            <p className='text-sm'>{exercise.description}</p>
+                            <p className='text-sm'>{exercise.instructions}</p>
                         </div>
                     ))
                 )}

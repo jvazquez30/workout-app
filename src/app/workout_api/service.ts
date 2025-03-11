@@ -17,6 +17,11 @@ interface ApiResponse<T> {
     error: string | null
 }
 
+/**
+ * Fetches all exercises from the API with optional filtering parameters
+ * @param params Optional query parameters for filtering exercises
+ * @returns Promise containing exercise data and any potential errors
+ */
 export async function getAllExercises(params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
     try {
         const queryParams = new URLSearchParams({
@@ -49,18 +54,24 @@ export async function getAllExercises(params: ExerciseQueryParams = {}): Promise
     }
 }
 
-    export async function searchExercises(searchTerm: string, params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
+/**
+ * Searches exercises based on a search term, filtering by name, primary muscles, or category
+ * @param searchTerm The term to search for in exercise details
+ * @param params Optional query parameters for additional filtering
+ * @returns Promise containing filtered exercise data and any potential errors
+ */
+export async function searchExercises(searchTerm: string, params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
     try {
         const { data, error } = await getAllExercises(params)
-        
+
         if (error) {
             return { data: [], error }
         }
 
-        const filteredExercises = data.filter(exercise => 
+        const filteredExercises = data.filter(exercise =>
             exercise.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             exercise.primaryMuscles.some(muscle => muscle.toLowerCase().includes(searchTerm.toLowerCase())) ||
-            exercise.category.toLowerCase().includes(searchTerm.toLowerCase()) 
+            exercise.category.toLowerCase().includes(searchTerm.toLowerCase())
         )
 
         return {
@@ -76,14 +87,81 @@ export async function getAllExercises(params: ExerciseQueryParams = {}): Promise
     }
 }
 
+/**
+ * Fetches exercises filtered by a specific category
+ * @param category The category to filter exercises by
+ * @param params Optional additional query parameters
+ * @returns Promise containing category-filtered exercise data and any potential errors
+ */
 export async function getExercisesByCategory(category: string, params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
     return getAllExercises({ ...params, category })
 }
 
+/**
+ * Fetches exercises filtered by a specific muscle group
+ * @param muscle The muscle group to filter exercises by
+ * @param params Optional additional query parameters
+ * @returns Promise containing muscle-filtered exercise data and any potential errors
+ */
 export async function getExercisesByMuscle(muscle: string, params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
-    return getAllExercises({ ...params, muscle })
+    try {
+        // get all exercises first
+        const { data, error } = await getAllExercises(params)
+
+        if (error) {
+            return { data: [], error }
+        }
+
+        // filter exercises by muscle
+        const filteredExercises = data.filter(exercise =>
+            exercise.primaryMuscles.some(m =>
+                m.toLowerCase().includes(muscle.toLowerCase())
+            ) ||
+            (exercise.secondaryMuscles && exercise.secondaryMuscles.some(m =>
+                m.toLowerCase().includes(muscle.toLowerCase())
+            ))
+        );
+
+        return {
+            data: filteredExercises,
+            error: null
+        }
+    } catch (error) {
+        return {
+            data: [],
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        };
+    }
 }
 
-export async function getExercisesByDifficulty(difficulty:string, params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
-    return getAllExercises({ ...params, difficulty })
+/**
+ * Fetches exercises filtered by difficulty level
+ * @param difficulty The difficulty level to filter exercises by
+ * @param params Optional additional query parameters
+ * @returns Promise containing difficulty-filtered exercise data and any potential errors
+ */
+export async function getExercisesByDifficulty(difficulty: string, params: ExerciseQueryParams = {}): Promise<ApiResponse<Exercise[]>> {
+    try {
+        // Get all exercises first
+        const { data, error } = await getAllExercises(params)
+
+        if (error) {
+            return { data: [], error }
+        }
+        
+        // Filter exercises by difficulty
+        const filteredExercises = data.filter(exercise => 
+            exercise.level.toLowerCase() === difficulty.toLowerCase()
+        )
+
+        return {
+            data: filteredExercises,
+            error: null
+        }
+    } catch (error) {
+        return {
+            data: [],
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        }
+    }
 }

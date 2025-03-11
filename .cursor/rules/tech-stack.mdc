@@ -1,5 +1,5 @@
 ---
-description: Tech Stack.
+description: Tech Stack
 globs: 
 alwaysApply: false
 ---
@@ -10,4 +10,7 @@ alwaysApply: false
 - Use React/Typescript for Frontend.
 - Use Tailwind CSS Styling
 
-#
+# Creating Code
+
+- when creating code, add a comment above each code block explaining its purpose to better understand what is being added.
+- please use the information provided in the API we are using in workout_api, especially when using data.
