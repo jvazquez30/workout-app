@@ -17,6 +17,14 @@ interface ApiResponse<T> {
     error: string | null
 }
 
+interface FilterCriteria {
+    searchTerm?: string
+    category?: string
+    muscle?: string
+    difficulty?: string
+    
+}
+
 /**
  * Fetches all exercises from the API with optional filtering parameters
  * @param params Optional query parameters for filtering exercises
@@ -163,5 +171,53 @@ export async function getExercisesByDifficulty(difficulty: string, params: Exerc
             data: [],
             error: error instanceof Error ? error.message : 'An unknown error occurred'
         }
+    }
+}
+
+
+export async function getFilteredExercises(filters: FilterCriteria): Promise<ApiResponse<Exercise[]>> {
+    try {
+        // Get all exercises first
+        const { data, error } = await getAllExercises();
+
+        if (error) {
+            return { data: [], error };
+        }
+
+        // Apply all filters
+        const filteredExercises = data.filter(exercise => {
+            // Check if exercise matches all provided filters
+            const matchesCategory = !filters.category || 
+                exercise.category.toLowerCase() === filters.category.toLowerCase();
+
+            const matchesMuscle = !filters.muscle || 
+                exercise.primaryMuscles.some(m => m.toLowerCase() === filters.muscle?.toLowerCase()) ||
+                (exercise.secondaryMuscles && exercise.secondaryMuscles.some(m => 
+                    m.toLowerCase() === filters.muscle?.toLowerCase()
+                ));
+
+            const matchesDifficulty = !filters.difficulty || 
+                exercise.level.toLowerCase() === filters.difficulty.toLowerCase();
+
+            const matchesSearch = !filters.searchTerm ||
+                exercise.name.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+                exercise.category.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+                exercise.primaryMuscles.some(muscle => 
+                    muscle.toLowerCase().includes(filters.searchTerm?.toLowerCase() || '')
+                );
+
+            // Return true only if all provided filters match
+            return matchesCategory && matchesMuscle && matchesDifficulty && matchesSearch;
+        });
+
+        return {
+            data: filteredExercises,
+            error: null
+        };
+    } catch (error) {
+        return {
+            data: [],
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        };
     }
 }
