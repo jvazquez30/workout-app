@@ -16,12 +16,11 @@ const ExerciseBrowser: React.FC<ExerciseBrowserProps> = ({ onExerciseSelect }) =
     const [selectedMuscle, setSelectedMuscle] = useState('');
     const [selectedDifficulty, setSelectedDifficulty] = useState('');
 
-    const categories = ['strength', 'stretching','plyometrics'];
-    const muscles = ['chest', 'back', 'shoulders', 'biceps', 'triceps', 'forearms', 'abs', 'quads', 'hamstrings', 'glutes', 'calves', 'adductors', 'abductors', 'serratus anterior', 'obliques', 'lats', 'rhomboids', 'traps', 'rotator cuffs', 'lower back', 'upper back'];
+    const categories = ['strength', 'stretching', 'plyometrics', 'strongman', 'powerlifting', 'olympic weightlifting', 'cardio'];
+    const muscles = ['chest', 'back', 'shoulders', 'biceps', 'triceps', 'forearms', 'abs', 'quadriceps', 'hamstrings', 'glutes', 'calves', 'adductors', 'abductors', 'serratus anterior', 'obliques', 'lats', 'rhomboids', 'traps', 'rotator cuffs', 'lower back', 'upper back'];
     const difficulties = ['beginner', 'intermediate', 'advanced'];
 
     // Add this function to handle all filters
-
     useEffect(() => {
         async function handleFilters() {
             setLoading(true);
@@ -110,6 +109,15 @@ const ExerciseBrowser: React.FC<ExerciseBrowserProps> = ({ onExerciseSelect }) =
                             </option>
                         ))}
                     </select>
+
+                    <button 
+                    className='bg-nordicGray text-white p-2 rounded-md w-full'
+                    onClick={() => {
+                        setSearchTerm('');
+                        setSelectedCategory('');
+                        setSelectedMuscle('');
+                        setSelectedDifficulty('');
+                    }}>Reset</button>
                 </div>
             </div>
 
@@ -130,6 +138,9 @@ const ExerciseBrowser: React.FC<ExerciseBrowserProps> = ({ onExerciseSelect }) =
                                 <div key={exercise.id} className='bg-nordicGray text-white rounded-md p-4'>
                                     <h3 className='text-lg font-bold'>{exercise.name}</h3>
                                     <p className='text-sm'>{exercise.instructions}</p>
+                                    <p className='text-sm'>Category: {exercise.category}</p>
+                                    <p className='text-sm'>Muscle: {exercise.primaryMuscles.join(', ')}, {exercise.secondaryMuscles.join(', ')}</p>
+                                    <p className='text-sm'>Difficulty: {exercise.level}</p>
                                 </div>
                             ))
                         )}
