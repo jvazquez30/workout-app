@@ -1,7 +1,7 @@
 ---
-description: Tech Stack
+description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Tech Stack
@@ -14,3 +14,4 @@ alwaysApply: false
 
 - when creating code, add a comment above each code block explaining its purpose to better understand what is being added.
 - please use the information provided in the API we are using in workout_api, especially when using data.
+- also use supabase information from out api.

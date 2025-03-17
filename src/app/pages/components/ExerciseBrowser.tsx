@@ -72,7 +72,7 @@ const ExerciseBrowser: React.FC<ExerciseBrowserProps> = ({ onExerciseSelect }) =
                     placeholder="Search for an exercise"
                     className="border border-gray-300 rounded-md p-2 w-full text-black"
                 />
-              
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <select
                         value={selectedCategory}
@@ -110,14 +110,14 @@ const ExerciseBrowser: React.FC<ExerciseBrowserProps> = ({ onExerciseSelect }) =
                         ))}
                     </select>
 
-                    <button 
-                    className='bg-nordicGray text-white p-2 rounded-md w-full'
-                    onClick={() => {
-                        setSearchTerm('');
-                        setSelectedCategory('');
-                        setSelectedMuscle('');
-                        setSelectedDifficulty('');
-                    }}>Reset</button>
+                    <button
+                        className='bg-nordicGray text-white p-2 rounded-md w-full'
+                        onClick={() => {
+                            setSearchTerm('');
+                            setSelectedCategory('');
+                            setSelectedMuscle('');
+                            setSelectedDifficulty('');
+                        }}>Reset</button>
                 </div>
             </div>
 
